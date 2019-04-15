@@ -43,7 +43,7 @@ public class CalendarsView extends JFrame {
 	private int now_year = now_date.getYear();
 	private int now_month = now_date.getMonth();
 	
-	private String year_int = null; //±£´æÓÃ»§Ñ¡ÔñµÄÄê·İ
+	private String year_int = null; //ä¿å­˜ç”¨æˆ·é€‰æ‹©çš„å¹´ä»½
 	private int month_int; 
 	
 	//private String[] lunar_day = new String[42];
@@ -53,7 +53,7 @@ public class CalendarsView extends JFrame {
 	int monthday = 0;
 	
 	private boolean todayFlag;
-	String[] weekdaystr = { "ĞÇÆÚÈÕ", "ĞÇÆÚÒ»", "ĞÇÆÚ¶ş", "ĞÇÆÚÈı", "ĞÇÆÚËÄ", "ĞÇÆÚÎå", "ĞÇÆÚÁù" };
+	String[] weekdaystr = { "æ˜ŸæœŸæ—¥", "æ˜ŸæœŸä¸€", "æ˜ŸæœŸäºŒ", "æ˜ŸæœŸä¸‰", "æ˜ŸæœŸå››", "æ˜ŸæœŸäº”", "æ˜ŸæœŸå…­" };
 	Object[][] monthview = new String[6][7];
 	JPanel dayPanel = new JPanel();
 	JPanel panel1 = new JPanel();
@@ -62,24 +62,24 @@ public class CalendarsView extends JFrame {
 	JPanel noteBook = new NoteBook();
 	JTabbedPane jTabbedPane = new JTabbedPane(JTabbedPane.TOP);
 
-	JButton Prebutton = new JButton("ÉÏÒ»ÔÂ");
-	JButton Nextbutton = new JButton("ÏÂÒ»ÔÂ");
-	JButton PreYear = new JButton("ÉÏÒ»Äê");
-	JButton NextYear = new JButton("ÏÂÒ»Äê");
-	JButton Change = new JButton(year + "Äê" + month + "ÔÂ");
+	JButton Prebutton = new JButton("ä¸Šä¸€æœˆ");
+	JButton Nextbutton = new JButton("ä¸‹ä¸€æœˆ");
+	JButton PreYear = new JButton("ä¸Šä¸€å¹´");
+	JButton NextYear = new JButton("ä¸‹ä¸€å¹´");
+	JButton Change = new JButton(year + "å¹´" + month + "æœˆ");
 
-	JLabel nowLabel = new JLabel(year + "Äê" + month+ "ÔÂ" + (c.get(Calendar.DATE)) + "ÈÕ", JLabel.CENTER);
+	JLabel nowLabel = new JLabel(year + "å¹´" + month+ "æœˆ" + (c.get(Calendar.DATE)) + "æ—¥", JLabel.CENTER);
 	JLabel timeLabel = new JLabel("---", JLabel.LEFT);
 	
 	DefaultTableModel model = new DefaultTableModel();
 	JTable JTable;
 	JScrollPane JScrollPane;
 
-	TrayIcon trayIcon;//ÍĞÅÌÍ¼±ê
-    SystemTray systemTray;//ÏµÍ³ÍĞÅÌ
+	TrayIcon trayIcon;//æ‰˜ç›˜å›¾æ ‡
+    SystemTray systemTray;//ç³»ç»Ÿæ‰˜ç›˜
 	public CalendarsView() {
-		//ÍĞÅÌ»¯
-		systemTray = SystemTray.getSystemTray();//»ñµÃÏµÍ³ÍĞÅÌµÄÊµÀı   
+		//æ‰˜ç›˜åŒ–
+		systemTray = SystemTray.getSystemTray();//è·å¾—ç³»ç»Ÿæ‰˜ç›˜çš„å®ä¾‹   
         try {
             trayIcon = new TrayIcon(ImageIO.read(new File(System.getProperty("user.dir")+"\\source\\360.png")));
         }
@@ -91,14 +91,14 @@ public class CalendarsView extends JFrame {
         this.addWindowListener(
                 new WindowAdapter() {   
                     public void windowIconified(WindowEvent e) {   
-                    	int n = JOptionPane.showConfirmDialog(null, "ÊÇ·ñËõĞ¡µ½ÍĞÅÌ?", "ËõĞ¡", JOptionPane.YES_NO_OPTION);  
+                    	int n = JOptionPane.showConfirmDialog(null, "æ˜¯å¦ç¼©å°åˆ°æ‰˜ç›˜?", "ç¼©å°", JOptionPane.YES_NO_OPTION);  
                         if (n == JOptionPane.YES_OPTION) {  
-                        	dispose();//´°¿Ú×îĞ¡»¯Ê±dispose¸Ã´°¿Ú 
+                        	dispose();//çª—å£æœ€å°åŒ–æ—¶disposeè¯¥çª—å£ 
                         	try {
 								systemTray.add(trayIcon);
 							} catch (AWTException e1) {
 								e1.printStackTrace();
-							}//ÉèÖÃÍĞÅÌµÄÍ¼±ê
+							}//è®¾ç½®æ‰˜ç›˜çš„å›¾æ ‡
                         } else if (n == JOptionPane.NO_OPTION) {  
                         	systemTray.remove(trayIcon);
                         } 
@@ -109,7 +109,7 @@ public class CalendarsView extends JFrame {
         trayIcon.addMouseListener(
                 new MouseAdapter(){
                     public void mouseClicked(MouseEvent e){
-                        if(e.getClickCount() == 2)//Ë«»÷ÍĞÅÌ´°¿ÚÔÙÏÖ
+                        if(e.getClickCount() == 2)//åŒå‡»æ‰˜ç›˜çª—å£å†ç°
                             setExtendedState(Frame.NORMAL);
                             setVisible(true);
                             systemTray.remove(trayIcon);
@@ -117,7 +117,7 @@ public class CalendarsView extends JFrame {
                 });        
         
 		
-		//Ê±¼äÀ¸
+		//æ—¶é—´æ 
 		Timer timer = new Timer(1000, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				timeLabel.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -132,7 +132,7 @@ public class CalendarsView extends JFrame {
 		dayPanel.setLayout(new BorderLayout());
 		dayPanel.add(nowLabel, BorderLayout.NORTH);
 		//dayPanel.add(JScrollPane, BorderLayout.CENTER);
-		// ÉÏ·½°´Å¥
+		// ä¸Šæ–¹æŒ‰é’®
 		panel1.setLayout(new GridLayout(1, 3));
 		panel1.setBackground(Color.white);
 		Prebutton.setContentAreaFilled(false);
@@ -151,13 +151,13 @@ public class CalendarsView extends JFrame {
 		calPanel.add(dayPanel, BorderLayout.CENTER);
 		calPanel.add(timeLabel, BorderLayout.SOUTH);
 
-		jTabbedPane.add(calPanel, "ÈÕÀú");
-		jTabbedPane.add(alarmDemo,"ÄÖÖÓ"); 
-		jTabbedPane.add(noteBook,"¼ÇÊÂ±¾"); 
+		jTabbedPane.add(calPanel, "æ—¥å†");
+		jTabbedPane.add(alarmDemo,"é—¹é’Ÿ"); 
+		jTabbedPane.add(noteBook,"è®°äº‹æœ¬"); 
 
 		add(jTabbedPane, BorderLayout.NORTH);
 
-		// °´Å¥¼àÌıÆ÷
+		// æŒ‰é’®ç›‘å¬å™¨
 		Prebutton.addActionListener(new PressButton());
 		Nextbutton.addActionListener(new PressButton());
 	}
@@ -177,40 +177,62 @@ public class CalendarsView extends JFrame {
 		for(int i = 0; i < 42; i++) {
 			button_day[i] = new JButton("");
 			panel_day.add(button_day[i]);
-		}  //Ìí¼ÓÈÕÆÚ£¬·Åµ½Ãæ°åÀïÃæ
+		}  //æ·»åŠ æ—¥æœŸï¼Œæ”¾åˆ°é¢æ¿é‡Œé¢
 		this.paintDay();
-		JPanel panel_main = new JPanel();  //·ÅÖÃÒÔÉÏÁ½¸öÃæ°å
-		panel_main.setLayout(new BorderLayout());  //±ß½ç²¼¾Ö¹ÜÀíÆ÷
+		JPanel panel_main = new JPanel();  //æ”¾ç½®ä»¥ä¸Šä¸¤ä¸ªé¢æ¿
+		panel_main.setLayout(new BorderLayout());  //è¾¹ç•Œå¸ƒå±€ç®¡ç†å™¨
 		panel_main.add(panel_day,BorderLayout.SOUTH);
 		getContentPane().add(panel_main);
 	}
-	
+	/**
+     *
+     * @param y å¹´ä»½
+     * @param m æœˆä»½
+     * @param d æ—¥æœŸ
+     * @return æ˜ŸæœŸå‡ 
+     */
+    public int dayOfWeek(int y, int m, int d){
+        if (m < 1 || m > 12 || d < 1 || d > 31) return -1;
+        if (m == 1) {
+            m = 13;
+            y--;
+        } else if (m == 2) {
+            m = 14;
+            y--;
+        }
+        int c = y / 100;
+        y = y - c * 100;
+        int week = y + y / 4 + c / 4 - 2 * c + 26 * (m + 1) / 10 + d - 1;
+        week %= 7;
+        week = week < 0 ? week + 7 : week;
+        return week;
+    }
 	private void paintDay() {
 	
 		if(this.todayFlag) {
-			month_int = now_month;//ÒªÇóÏÔÊ¾½ñÌìµÄÈÕÆÚ 
+			month_int = now_month;//è¦æ±‚æ˜¾ç¤ºä»Šå¤©çš„æ—¥æœŸ 
 		} else {
 			JButton button = new JButton();
 			if (button == Prebutton) {
 				month_int = month - 1;
-				if (month <= 0) {
+				if (month < 1) {
 					year--;
-					month_int = month + 12;
+					month_int = 1;
 				}
 			} else {
 				month_int = month + 1;
 				if (month > 12) {
 					year++;
-					month_int = month - 12;
+					month_int = 1;
 				}
 			}
 		}
-		Date firstDay = new Date(now_year, month_int, -2);//¹¹Ôì¸ÃÔÂµÄµÚÒ»Ìì
-		GregorianCalendar cal = new GregorianCalendar();//´´½¨Ò»¸öCalendarµÄÊµÀı
+		Date firstDay = new Date(now_year, month_int, -2);//æ„é€ è¯¥æœˆçš„ç¬¬ä¸€å¤©
+		GregorianCalendar cal = new GregorianCalendar();//åˆ›å»ºä¸€ä¸ªCalendarçš„å®ä¾‹
 		cal.setTime(firstDay);
 		
-		int days = 0;//´æ·ÅÄ³¸öÔÂ·İµÄÌìÊı
-		int day_week = 0;//´æ·ÅÄ³¸öÔÂ·İµÄµÚÒ»ÌìÊ¹ĞÇÆÚ¼¸µÄÊıÖµ
+		int days = 0;//å­˜æ”¾æŸä¸ªæœˆä»½çš„å¤©æ•°
+		int day_week = 0;//å­˜æ”¾æŸä¸ªæœˆä»½çš„ç¬¬ä¸€å¤©ä½¿æ˜ŸæœŸå‡ çš„æ•°å€¼
 		if(month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10  || month == 12) {
 			days = 31; 
 		} else if (month == 4 || month == 6 || month == 9 || month == 11) {
@@ -220,46 +242,47 @@ public class CalendarsView extends JFrame {
 				days = 29;
 			} else {
 				days = 28;
-			}//¶şÔÂ£¬Èç¹ûÈòÄê£¬ÔòÓĞ29Ìì£¬·ñÔòÓĞ28Ìì
-		}//ÅĞ¶ÏÊÇ¼¸ÔÂ·İ£¬¸ù¾İËüÀ´Éè¶¨dayµÄÖµ£¬ÆäÖĞ¶şÔÂ·İÒªÅĞ¶ÏÊÇ·ñÈòÄê
-		day_week = firstDay.getDay();
-		int count = 1;
+			}//äºŒæœˆï¼Œå¦‚æœé—°å¹´ï¼Œåˆ™æœ‰29å¤©ï¼Œå¦åˆ™æœ‰28å¤©
+		}//åˆ¤æ–­æ˜¯å‡ æœˆä»½ï¼Œæ ¹æ®å®ƒæ¥è®¾å®šdayçš„å€¼ï¼Œå…¶ä¸­äºŒæœˆä»½è¦åˆ¤æ–­æ˜¯å¦é—°å¹´
+		day_week = dayOfWeek(year, month_int, 1);
+		//int count = 1;
   /**
-   * »æÖÆ°´Å¥¡£ÔÚÕâÀïÊ×ÏÈÒª¸ù¾İÑ¡¶¨µÄÔÂ·İµÄµÚÒ»ÌìÊÇĞÇÆÚ¼¸À´È·¶¨»æÖÆ°´Å¥µÄÆğÊ¼Î»ÖÃ
-   * ÆäÖĞday_week¾ÍÊÇÎÒÃÇÒª»æÖÆµÄÆğÊ¼Î»ÖÃ£¬¶ÔÓÚÄÇĞ©Ã»ÓĞÊıÖµ¿ÉÒÔÏÔÊ¾µÄ°´Å¥ÒªÖÃ¿Õ
+   * ç»˜åˆ¶æŒ‰é’®ã€‚åœ¨è¿™é‡Œé¦–å…ˆè¦æ ¹æ®é€‰å®šçš„æœˆä»½çš„ç¬¬ä¸€å¤©æ˜¯æ˜ŸæœŸå‡ æ¥ç¡®å®šç»˜åˆ¶æŒ‰é’®çš„èµ·å§‹ä½ç½®
+   * å…¶ä¸­day_weekå°±æ˜¯æˆ‘ä»¬è¦ç»˜åˆ¶çš„èµ·å§‹ä½ç½®ï¼Œå¯¹äºé‚£äº›æ²¡æœ‰æ•°å€¼å¯ä»¥æ˜¾ç¤ºçš„æŒ‰é’®è¦ç½®ç©º
    */
 		String[] LunarDate=new String[42];
 		Lunar lunar = new Lunar();  
 		
-		for(int i = day_week; i < day_week + days; count++, i++){
-			LunarDate[i]=lunar.getLunarDate( year,  month_int - 1, i); 
+		for(int i = day_week; i < day_week + days;  i++){
+			//æ­¤å¤„åº”è¯¥ç”¨  i - (day_week - 1) å¦åˆ™ä¼šå‡ºç°é˜´å†å¯¹åº”é”™è¯¯çš„é—®é¢˜,ä¸éœ€è¦month_int - 1 ,å¯¼è‡´é˜´å†ä¸å¯¹åº”
+			LunarDate[i]=lunar.getLunarDate( year,  month_int , i - (day_week - 1)); 
 			if(i%7 == 0|| i == 6 || i == 13 || i == 20 || i == 27 || i == 34 || i == 41) {
-    //Èç¹ûÊÇ±ß½çÉÏµÄ°´Å¥£¬ÎÄ×ÖÓÃºìÉ«£¬ÒÔÀ´±êÊ¾ÖÜÄ©
+    //å¦‚æœæ˜¯è¾¹ç•Œä¸Šçš„æŒ‰é’®ï¼Œæ–‡å­—ç”¨çº¢è‰²ï¼Œä»¥æ¥æ ‡ç¤ºå‘¨æœ«
 				if(i == day_week + now_date.getDate() - 1) {
-					button_day[i].setForeground(Color.blue);//½«Óë½ñÌìÒ»ÑùµÄÈÕÆÚÓÃÀ¶É«±êÊ¾
+					button_day[i].setForeground(Color.blue);//å°†ä¸ä»Šå¤©ä¸€æ ·çš„æ—¥æœŸç”¨è“è‰²æ ‡ç¤º
 					button_day[i].setText(count + LunarDate[i]);
 				} else {
-					button_day[i].setForeground(Color.red);//ÆäËü±ß½çÉÏµÄ°´Å¥ÖĞµÄÎÄ×ÖÓÃºìÉ«
+					button_day[i].setForeground(Color.red);//å…¶å®ƒè¾¹ç•Œä¸Šçš„æŒ‰é’®ä¸­çš„æ–‡å­—ç”¨çº¢è‰²
 					button_day[i].setText(count + LunarDate[i]);
 				}
 			} else {
 				if(i == day_week + now_date.getDate() - 1){
-					button_day[i].setForeground(Color.blue);//½«Óë½ñÌìÒ»ÑùµÄÈÕÆÚÓÃÀ¶É«±êÊ¾
+					button_day[i].setForeground(Color.blue);//å°†ä¸ä»Šå¤©ä¸€æ ·çš„æ—¥æœŸç”¨è“è‰²æ ‡ç¤º
 					button_day[i].setText(count + LunarDate[i]);
 				} else {
-					button_day[i].setForeground(Color.black);//Ò»°ãÎ»ÖÃµÄ°´Å¥ÉÏµÄÎÄ×ÖÓÃºÚÉ«±êÊ¾
+					button_day[i].setForeground(Color.black);//ä¸€èˆ¬ä½ç½®çš„æŒ‰é’®ä¸Šçš„æ–‡å­—ç”¨é»‘è‰²æ ‡ç¤º
 					button_day[i].setText(count + LunarDate[i]);    
 				}
 			}
 		}
 			if(day_week == 0){
-				//¶ÔÓÚÃ»ÓĞÈÕÆÚÊıÖµÏÔÊ¾µÄ°´Å¥½øĞĞÖÃ¿Õ´¦Àí
+				//å¯¹äºæ²¡æœ‰æ—¥æœŸæ•°å€¼æ˜¾ç¤ºçš„æŒ‰é’®è¿›è¡Œç½®ç©ºå¤„ç†
 				for(int i =days; i < 42; i++){
-					button_day[i].setText("");//Èç¹ûµÚÒ»ÌìÊÇÖÜÈÕ£¬Ôò½«µÚÒ»ÌìÇ°ÃæµÄ°´Å¥ÖÃ¿Õ
+					button_day[i].setText("");//å¦‚æœç¬¬ä¸€å¤©æ˜¯å‘¨æ—¥ï¼Œåˆ™å°†ç¬¬ä¸€å¤©å‰é¢çš„æŒ‰é’®ç½®ç©º
 				}
 			} else{
 		  for(int i = 0; i < day_week; i++){
-			  button_day[i].setText("");//Èç¹ûµÚÒ»Ìì²»ÊÇÖÜÈÕ£¬Ôò½«µÚÒ»ÌìÇ°ÃæµÄ°´Å¥ÖÃ¿Õ
+			  button_day[i].setText("");//å¦‚æœç¬¬ä¸€å¤©ä¸æ˜¯å‘¨æ—¥ï¼Œåˆ™å°†ç¬¬ä¸€å¤©å‰é¢çš„æŒ‰é’®ç½®ç©º
 		  }  
 	  }
 			/**/
@@ -283,7 +306,7 @@ public class CalendarsView extends JFrame {
 				}
 			}
 			dataOfDay();
-			Change.setText(year + "Äê" + month + "ÔÂ");
+			Change.setText(year + "å¹´" + month + "æœˆ");
 		}
 	}
 }
